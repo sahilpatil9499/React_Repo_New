@@ -1,0 +1,122 @@
+PART 1 :- 
+
+  - In the first episode we wrote basic "Hello World" in the browser using :- 
+    1. Basic HTML 
+    2. HTML and Javascript i.e using a basic script tag in the HTML code and adding the javascipt logic of DOM manipulation to add h1 tag into the basic DIV element and then adding hello world to it. 
+    3. React, i.e addded the React and ReactDOM libraries with the help cdn links in the script tags, then again added a new script tag where we used the React and ReactDOM to write the hello world code. 
+
+      - what we did here was used a method called as React.createElement to create a new element using the react library and inside that we have to give the arguments like this : 
+
+        const parent = React.createElement("div", {id: "parent"}, "Hello World") 
+
+        const root = ReactDOM.createRoot(document.querySelector('#root')); 
+        
+        root.render(parent) 
+
+      - Also note that the createElement method creates a ReactElement which is nothing but a javascript OBJECT. 
+
+      - In the React.createElement we gave 3 arguments/ parameters: 
+        1. first is the element that we need to create. 
+        2. second is the attributes we need to give for eg. "id", "class" etc. 
+        3. third is the basically the children: The child nodes of the element. These can be other React elements, strings, numbers, or arrays of React nodes. For the above example we gave the 3rd argument as "Hello World". 
+
+      - Now we need to define a root element onto which we want to add a element or the "hello world" text ,so here we use the ReactDOM.createRoot() method which creates a root element onto which we will add our element and start a virtual DOM (concept explained later). 
+      -now in the arguments we pass the element which we need to make as the root and its done by our basic javascript DOM methods. 
+
+      - for the last step we need to render or basically show the element we have created on the root which we have created and it is done so by using the render method of the REACT library. 
+        - The render method is used as : 
+        theRootElementCreated.render(theElementtobeShowed) 
+        - The render is a method which converts the object which i said earlier and then makes it into an element and then attaches to the div mentioned above, if you want detailed explanation search the render method online. 
+    
+    
+    - Now for example we want to have a nested html structure like this :
+      <div id="parent">
+        <div id="child1">
+          <h1>I'm h1 tag.</h1>
+          <h2>I'm h2 tag.</h2>
+        </div>
+        <div id="child2">
+          <h1>I'm h1 tag.</h1>
+          <h2>I'm h2 tag.</h2>
+        </div>
+      </div>
+
+      so for the above the react code will be like this : 
+
+      const parent = React.createElement(
+          "div", 
+          {id: "parent"}, 
+          [
+              React.createElement("div", {id: "child1"}, 
+                  [
+                      React.createElement("h1", {}, "I'm h1 tag."),
+                      React.createElement("h2", {}, "I'm h2 tag.")
+                  ]
+              ),
+              React.createElement("div", {id: "child2"}, 
+                  [
+                      React.createElement("h1", {}, "I'm h1 tag."),
+                      React.createElement("h2", {}, "I'm h2 tag.")
+                  ]
+              ),
+
+          ]
+      )
+
+
+      console.log(parent);
+
+      const root = ReactDOM.createRoot(document.querySelector('#root'));
+
+      root.render(parent)
+
+
+- As you can see in the above example the 3rd argument in the createElement is passed as an array [], since there are multiple nested childrens and also for further their 3rd arguments also we are passing an array [].
+
+
+PART 2 :- 
+
+  - Made a new Git repositary and then added the code written in the last part into the git repositary with steps followed mentioned in the github website. for further inforefer the git steps.
+
+  - So now if we look at our code/ files we can see that our code is not ready to be pushed to production or we can say that our code is not optimized. We need to clean our code remove all the comments, console.log do image optimization if present and then bundle/ compact the project so that it can be pushed to production.
+  
+  - Also now there is a question i.e "Can React alone make a fast and scalable production ready App? ". The answer to the above question is "No" cause we need a lots of other packages and libraries and other code to make a production ready app. React is making our app fast, YES ,but to an extent, so we need other packages in our project.
+  - Now to do so ie install various other packages/ libraries into our project we use something called as NPM. we can also call it as NODE PACKAGE MANAGER but its not the actual abbreviation for it.
+  - Firstly we do npm init which then asks us some questions reagrding the npm details or the configuration file.
+  - After doing/ filling all the details after the npm init we can see in the folder structure that a new package.json file has been added. This package.json is basically a configuration file for NPM. And this file helps us when we install packages/ dependencies in the project by keeping a track of the versions of the packages.
+
+  - Now the 1st package to install is called PARCEL which is a Bundler. To have a app for production we need to compress/ bundle it together such that does a various process on the files to make it ready for production. That is the function of a bundler. The create-react-app behind the scenes using WebPack and Babble which is a kind of bundler. There are many bundlers available like Webpack, Vite, Parcel etc.
+
+  - So the command to download/ install any package is: "npm install -D ThedependencyName"
+    The whole command is readable but what is this -D ?? The -D represents DEV dependency.
+    So basically there are 2 types of dependencies/ packages :
+      1. DEV Dependencies : Required only during development phase.
+      2. Normal Dependencies : Required during production phase also.
+  - So after running the command "npm install -D ThedependencyName" we can see that in our package.json file, the parcel is added as a dev dependency like this :
+      "devDependencies": {
+        "parcel": "^2.16.4"
+    }
+    - Now you can see the parcel is installed with a version "^2.16.4", but what is this ^ ?? ^ is called as Caret, also sometimes the version is written as "~2.16.4", this ~ is called as Tilde. So whats this caret and tilde and whats the difference ?
+      - Taking a example, in the above you can see the parcel version as 2.16.4, and suppose tmrw a new version is available in the npm ie suppose 2.16.5 i.e is a minor upgrade, so what caret(^) does is, automatically upgrade the version to the new available version taking the small version upgrades into consideration. Now suppose instead we used the tilde(~) and we got a major version upgrade in the future ie 3.0.1, so what this tilde does is, it automatically upgrades the version to the newer higher version without considering the minor version upgrades.
+      - So it is always recommended that we use caret(^) instead of tilde(~).
+  - Also we can see that when we do this "npm install -D ThedependencyName" another file called package-lock.json is created. So now whats the difference between this package.json and package-lock.json ?? 
+    - package.json file contains the list of dependencies and scripts in a project while the package.lock.json specifies their respective versions to ensure consistent installations in different environments.
+    - In layman terms -- As we know that package.json is a configuration for NPM and helps us when we install packages/ dependencies in the project by keeping a track of the versions of the packages. Also we have caret(^) and tilde(~) before the version in the package.json .Now package-lock.json keeps track of the exact version of the package that is installed, ie package.json can have version as ^2.16.5 and in future if the version changes to 2.16.6 then package.json will still have ^2.16.5 since we know the function of caret, but in the package-lock.json file basically locks the version and we will have the verison as 2.16.6, since it keeps track of the newest version. 
+  - We can also see in the folder structure, that when we run the command "npm install -D ThedependencyName" there is one more folder created called as node_modules. So what are node_modules ?? 
+    - Node modules contain all the code fetched from NPM, ie when we installed parcel, what it did was, it had gone to the NPM servers and took all the code/ data required for parcel from NPM. So, basically we can say that package.json is a configuration file for NPM and the node_modules are like databases for npm. Also node modules size is very big/ its heavy and hence it takes some time to install. 
+    - Also we can see that we only tried to install Parcel from npm but in the node_modules we can see that there are many other packages installed along with parcel, so many packages.
+      - So the explanation is that, our project needed Parcel as a dependency, ok, now Parcel as a project/ package in itself might require some other dependencies, and now these dependencies also might require some other dependencies and so on. Hence there are so many other packages/ folder installed in the node_modules. Now this phenomenon is known as Transitive Dependency.
+    - Since the size of the node_modules is very big, we should not include them in the production ie shouldn't put it on github and so on. So do so we make a new file called "gitignore" and write /node_modules inside it. What it does is jsut ignores the node_modules and doesnt add it in the commit and hence it cant be pushed for pproduction and so on.
+    - Now if node_modules shouldn't be supposed to be added in the production then why should we add package.json and package-lock.json ?? The answer is because package.json and package-lock.json maintains the name and versions of the package that the project is dependent on and we those names and version we can /recreate/ regenerate all the node_modules folder again with all the packages again available inside it with the command "npm install" in the terminal.
+
+  - Igniting our App: 
+    - So how do we ignite/ start our app ?? We will use "Parcel" for it. We do it by running a command "npx parcel TheSourceFile", here the source file in our case is index.html so the command will be "npx parcel index.html". 
+    - After running the above command we get something like this in our terminal ie "Server running at http://localhost:1234", so parcel has basically created a server for us and it is available at http://localhost:1234 this address.
+    - What is this command "npx parcel index.html" ? When we need to install a package we use "npm" for it, but when we need to execute package we use "npx" for it.
+      - So when we do this command ""npx parcel index.html" we give the source file as index.html, and then parcel goes to the source file and makes a development build for our app and then hosts the same at localhost:1234.
+  
+  - React using NPM :
+    - Earlier we installed react by using CDN links and added those links inside our index.html using script tags, but thats not the correct or the most feasible approach for installing react in our app, instead we should use "import" for the same 
+
+
+    

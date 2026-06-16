@@ -1,0 +1,24 @@
+{
+  "name": "namaste_react",
+  "version": "1.0.0",
+  "description": "React basics with multiple project",
+  "main": "App.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sahilpatil9499/React_Repo_New.git"
+  },
+  "keywords": [],
+  "author": "Sahil Patil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sahilpatil9499/React_Repo_New/issues"
+  },
+  "homepage": "https://github.com/sahilpatil9499/React_Repo_New#readme",
+  "devDependencies": {
+    "parcel": "^2.16.4"
+  }
+}
+ 
